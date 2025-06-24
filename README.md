@@ -1,6 +1,6 @@
 # 💰 Banking Application (MERN Stack)
+![Cashier Dashboard Screenshot](./assets/cashier.png)
 
-![Banking App UI](./assets/cashier.png)
 
 This is a full-stack **Banking Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). The app is designed to handle different roles such as **Admin**, **Manager**, **Cashier**, and **Customer**, with functionalities like customer account management, role-based dashboards, and transaction handling (e.g., withdrawals, deposits).
 
