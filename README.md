@@ -39,5 +39,4 @@ More features and improvements will be added soon.
 
 ---
 
-## 📂 Project Structure
 
