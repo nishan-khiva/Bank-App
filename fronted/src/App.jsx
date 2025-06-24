@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from "./Pages/LoginPage"
 import PageNotFound from './Pages/PageNotFound';
-import ManagerDashboard from './Pages/manager/Dashboard'
 import ProtectedRoute from './Components/ProtectRoute';
 
 //Admin pages
@@ -21,7 +20,8 @@ import CusDashboard from './Pages/customer/Dashboard';
 // Cashier pages
 import CashierDashboard from './Pages/cashier/CashierDashboard';
 
-
+//Manager pages
+import ManagerDashboard from './Pages/manager/ManagerDashboard';
 
 
 function App() {
