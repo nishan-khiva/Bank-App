@@ -5,7 +5,7 @@ import api from '../Api/axiosInstance'; // Updated import for axios instance
 const Login = () => {
   const [loginType, setLoginType] = useState('employee'); 
   const [custumerId, setCustumerId] = useState('');
-  const [employeeId, setEmployeeId] = useState('1051');
+  const [employeeId, setEmployeeId] = useState('1053');
   const [password, setPassword] = useState('1234');
   const [error, setError] = useState('');
   const navigate = useNavigate();
