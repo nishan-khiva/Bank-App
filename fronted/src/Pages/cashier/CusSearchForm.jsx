@@ -3,7 +3,7 @@ import { useState } from "react";
 import api from "../../Api/axiosInstance"
 
 const CustomerSearchForm = ({ onCustomerFound }) => {
-  const [accountno, setAccountno] = useState("1400201");
+  const [accountno, setAccountno] = useState("1400203");
 
   const handleSearch = async () => {
     try {
