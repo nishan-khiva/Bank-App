@@ -1,12 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import api from "../../Api/axiosInstance"
 
 const CustomerSearchForm = ({ onCustomerFound }) => {
-  const [accountno, setAccountno] = useState("");
+  const [accountno, setAccountno] = useState("1400206");
 
   const handleSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/custumer/accountno/${accountno}`);
+      // const res = await axios.get(`http://localhost:4000/api/custumer/accountno/${accountno}`);
+      const res = await api.get(`/api/custumer/accountno/${accountno}`);
       onCustomerFound(res.data.custumer);
     } catch (err) {
       alert("Customer not found!");

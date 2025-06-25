@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../Api/axiosInstance"
 
 const TransactionHistory = ({ accountno }) => {
   const [transactions, setTransactions] = useState([]);
@@ -10,7 +10,7 @@ const TransactionHistory = ({ accountno }) => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(`http://localhost:4000/api/history/${accountno}`);
+      const res = await api.get(`/api/history/${accountno}`);
       console.log("Transaction history response:", res);
 
       const data = res.data ?? [];  // ✅ Corrected here

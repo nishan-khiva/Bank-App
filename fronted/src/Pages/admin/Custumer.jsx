@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../Api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const EmployeeList = () => {
@@ -9,7 +9,7 @@ const EmployeeList = () => {
   const fetchCustumers = async () => {
     try {
       const token = localStorage.getItem('emplytoken');
-      const res = await axios.get('http://localhost:4000/api/custumer/getcustumers', {
+      const res = await api.get('/api/custumer/getcustumers', {
         headers: {
           Authorization: `Bearer ${token}`
         }

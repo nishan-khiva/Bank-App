@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../Api/axiosInstance'
 
 const CusDetails = () => {
     const { id } = useParams();
@@ -10,7 +10,7 @@ const CusDetails = () => {
     const fetchCustumer = async () => {
         try {
             const token = localStorage.getItem('emplytoken');
-            const res = await axios.get(`http://localhost:4000/api/custumer/${id}`, {
+            const res = await api.get(`/api/custumer/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

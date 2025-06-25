@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../Api/axiosInstance';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -15,7 +15,7 @@ const EmployeeList = () => {
   const fetchEmployees = async () => {
     try {
       const token = localStorage.getItem('emplytoken');
-      const res = await axios.get('http://localhost:4000/api/emply/getemply', {
+      const res = await api.get('/api/emply/getemply', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -41,7 +41,7 @@ const EmployeeList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/api/emply/register',{
+      await api.post('/api/emply/register',{
         ...formData
       }, {
         headers: {    

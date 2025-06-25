@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import api from '../Api/axiosInstance'; // Updated import for axios instance
 
 const Login = () => {
   const [loginType, setLoginType] = useState('employee'); 
@@ -16,11 +16,11 @@ const Login = () => {
 
     const endpoint =
       loginType === 'customer'
-        ? 'http://localhost:4000/api/custumer/login'
-        : 'http://localhost:4000/api/emply/login';
+        ? '/api/custumer/login'
+        : '/api/emply/login';
 
     try {
-      const res = await axios.post(endpoint, {
+      const res = await api.post(endpoint, {
         [loginType === 'employee' ? 'employeeId' : 'custumerId']: loginType === 'employee' ? employeeId : custumerId,
         password,
       });

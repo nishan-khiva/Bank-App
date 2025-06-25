@@ -3,8 +3,11 @@ import CustomerSearchForm from "./CusSearchForm";
 import DepositForm from "./Deposite";
 import WithdrawForm from "./Withraw";
 import TransactionHistory from "./Transaction";
-import axios from "axios";
+// import axios from "axios";
+import api from "../../Api/axiosInstance"; // Updated import for axios instance
 import { useNavigate } from 'react-router-dom';
+
+const API_URL = import.meta.env.VITE_API_URL
 
 const CashierDashboard = () => {
   const [customer, setCustomer] = useState(null);
@@ -16,7 +19,7 @@ const CashierDashboard = () => {
   const reloadCustomer = async () => {
     if (!customer?.accountno) return;
     try {
-      const res = await axios.get(`http://localhost:4000/api/custumer/accountno/${customer.accountno}`);
+      const res = await api.get(`/api/custumer/accountno/${customer.accountno}`);
       if (res.data?.custumer) {
         setCustomer(res.data.custumer);
       } else {
@@ -76,7 +79,7 @@ const employeeName = localStorage.getItem('employeeName');
                 {customer.signature && (
                   <div className="mt-4 sm:mt-0">
                     <img
-                      src={`http://localhost:4000/${customer.signature}`}
+                      src={`${API_URL}/${customer.signature}`}
                       alt="Customer Signature"
                       className="h-28 object-contain border border-gray-300 shadow p-2 bg-white"
                     />
@@ -88,7 +91,7 @@ const employeeName = localStorage.getItem('employeeName');
                 {customer.photo && (
                   <div className="mt-4 sm:mt-0">
                     <img
-                      src={`http://localhost:4000/${customer.photo}`}
+                      src={`${API_URL}/${customer.photo}`}
                       alt="Customer Photo"
                       className="h-28 w-28 object-cover rounded-full border-2 border-gray-300 shadow"
                     />

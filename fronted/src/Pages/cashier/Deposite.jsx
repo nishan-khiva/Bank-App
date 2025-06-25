@@ -1,6 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-
+import api from "../../Api/axiosInstance"
 const DepositForm = ({ accountno, reload }) => {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
@@ -12,7 +11,7 @@ const DepositForm = ({ accountno, reload }) => {
     }
 
     try {
-      await axios.post("http://localhost:4000/api/deposit", {
+      await api.post("/api/deposit", {
         accountno,
         amount,
         description,

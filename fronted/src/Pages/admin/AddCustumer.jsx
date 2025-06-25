@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../Api/axiosInstance'
 
 const AddCustumer = () => {
     const [photoPreview, setPhotoPreview] = useState(null);
@@ -63,7 +63,7 @@ const AddCustumer = () => {
             if (photo) data.append('photo', photo);
             if (signature) data.append('signature', signature);
 
-            await axios.post('http://localhost:4000/api/custumer/register', data, {
+            await api.post('/api/custumer/register', data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('emplytoken')}`,
                     'Content-Type': 'multipart/form-data',
