@@ -7,7 +7,7 @@ import TransactionHistory from "./Transaction";
 import api from "../../Api/axiosInstance"; // Updated import for axios instance
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_URL
+// const API_URL = import.meta.env.VITE_API_URL
 
 const CashierDashboard = () => {
   const [customer, setCustomer] = useState(null);
@@ -29,13 +29,13 @@ const CashierDashboard = () => {
       console.error("Reload failed:", error);
     }
   };
-const employeeName = localStorage.getItem('employeeName');
+  const employeeName = localStorage.getItem('employeeName');
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <div className="w-64 min-h-screen bg-blue-100 text-white p-6 space-y-1">
         <h2 className="text-2xl font-bold  text-blue-700">💼 Cashier</h2>
-        <p className="text-lg text-black">Welcome, {employeeName.toUpperCase()}</p><hr className="text-black"/>
+        <p className="text-lg text-black">Welcome, {employeeName.toUpperCase()}</p><hr className="text-black" />
 
         {["search", "deposit", "withdraw", "transactions"].map(tab => (
           <button
@@ -79,7 +79,7 @@ const employeeName = localStorage.getItem('employeeName');
                 {customer.signature && (
                   <div className="mt-4 sm:mt-0">
                     <img
-                      src={`${API_URL}/${customer.signature}`}
+                      src={customer.signature}
                       alt="Customer Signature"
                       className="h-28 object-contain border border-gray-300 shadow p-2 bg-white"
                     />
@@ -87,7 +87,8 @@ const employeeName = localStorage.getItem('employeeName');
                   </div>
                 )}
 
-                {/* Photo */}
+                
+                {/* Photo
                 {customer.photo && (
                   <div className="mt-4 sm:mt-0">
                     <img
@@ -97,7 +98,20 @@ const employeeName = localStorage.getItem('employeeName');
                     />
                     <p className="text-center mt-1 text-sm text-gray-500">Photo</p>
                   </div>
+                )} */}
+                {/* Photo */}
+                
+                {customer.photo && (
+                  <div className="mt-4 sm:mt-0">
+                    <img
+                      src={customer.photo}
+                      alt="Customer Photo"
+                      className="h-28 w-28 object-cover rounded-full border-2 border-gray-300 shadow"
+                    />
+                    <p className="text-center mt-1 text-sm text-gray-500">Photo</p>
+                  </div>
                 )}
+
               </div>
 
               {activeTab === "search" && (

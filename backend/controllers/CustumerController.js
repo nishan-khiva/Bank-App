@@ -3,64 +3,124 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // Register Customer
+// const registerCustumer = async (req, res) => {
+//     try {
+//         const {
+//             name, email, password, status,
+//             fatherName, adhaarNo, panNo, dob, gender,
+//             phone, address, nominee, nomineeRelation,
+//             accountType, branchname, ifsc
+//         } = req.body;
+
+//         const existing = await Custumer.findOne({ email });
+//         if (existing) return res.status(400).json({ message: 'Custumer already exists' });
+
+//         const lastCustumer = await Custumer.findOne().sort({ custumerId: -1 });
+//         const nextCustumerId = lastCustumer ? lastCustumer.custumerId + 1 : 1000;
+
+//         const lastAccount = await Custumer.findOne().sort({ accountno: -1 });
+//         const nextAccountNo = lastAccount ? lastAccount.accountno + 1 : 1400201;
+
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const photo = req.files['photo'] ? req.files['photo'][0].path : '';
+//         const signature = req.files['signature'] ? req.files['signature'][0].path : '';
+
+
+//         const newCustumer = new Custumer({
+//             custumerId: nextCustumerId,
+//             name,
+//             email,
+//             password: hashedPassword,
+//             accountno: nextAccountNo,
+//             status: status || 'active',
+//             fatherName,
+//             adhaarNo,
+//             panNo,
+//             dob,
+//             gender,
+//             phone,
+//             address,
+//             nominee,
+//             nomineeRelation,
+//             accountType,
+//             branchname,
+//             ifsc,
+//             signature,
+//             photo
+//         });
+
+//         await newCustumer.save();
+
+//         res.status(201).json({
+//             message: 'Customer registered successfully',
+//             custumerId: newCustumer.custumerId,
+//             photoPath: newCustumer.photo,
+//             signaturePath: newCustumer.signature
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Server error while registering customer' });
+//     }
+// };
+
 const registerCustumer = async (req, res) => {
-    try {
-        const {
-            name, email, password, status,
-            fatherName, adhaarNo, panNo, dob, gender,
-            phone, address, nominee, nomineeRelation,
-            accountType, branchname, ifsc
-        } = req.body;
+  try {
+    const {
+      name, email, password, status,
+      fatherName, adhaarNo, panNo, dob, gender,
+      phone, address, nominee, nomineeRelation,
+      accountType, branchname, ifsc
+    } = req.body;
 
-        const existing = await Custumer.findOne({ email });
-        if (existing) return res.status(400).json({ message: 'Custumer already exists' });
+    const existing = await Custumer.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'Customer already exists' });
 
-        const lastCustumer = await Custumer.findOne().sort({ custumerId: -1 });
-        const nextCustumerId = lastCustumer ? lastCustumer.custumerId + 1 : 1000;
+    const lastCustumer = await Custumer.findOne().sort({ custumerId: -1 });
+    const nextCustumerId = lastCustumer ? lastCustumer.custumerId + 1 : 1000;
 
-        const lastAccount = await Custumer.findOne().sort({ accountno: -1 });
-        const nextAccountNo = lastAccount ? lastAccount.accountno + 1 : 1400201;
+    const lastAccount = await Custumer.findOne().sort({ accountno: -1 });
+    const nextAccountNo = lastAccount ? lastAccount.accountno + 1 : 1400201;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const photo = req.files['photo'] ? req.files['photo'][0].path : '';
-        const signature = req.files['signature'] ? req.files['signature'][0].path : '';
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const photo = req.files['photo'] ? req.files['photo'][0].path : '';
+    const signature = req.files['signature'] ? req.files['signature'][0].path : '';
 
+    const newCustumer = new Custumer({
+      custumerId: nextCustumerId,
+      name,
+      email,
+      password: hashedPassword,
+      accountno: nextAccountNo,
+      status: status || 'active',
+      fatherName,
+      adhaarNo,
+      panNo,
+      dob,
+      gender,
+      phone,
+      address,
+      nominee,
+      nomineeRelation,
+      accountType,
+      branchname,
+      ifsc,
+      signature,
+      photo
+    });
 
-        const newCustumer = new Custumer({
-            custumerId: nextCustumerId,
-            name,
-            email,
-            password: hashedPassword,
-            accountno: nextAccountNo,
-            status: status || 'active',
-            fatherName,
-            adhaarNo,
-            panNo,
-            dob,
-            gender,
-            phone,
-            address,
-            nominee,
-            nomineeRelation,
-            accountType,
-            branchname,
-            ifsc,
-            signature,
-            photo
-        });
+    await newCustumer.save();
 
-        await newCustumer.save();
+    res.status(201).json({
+      message: 'Customer registered successfully',
+      custumerId: newCustumer.custumerId,
+      photoUrl: newCustumer.photo,
+      signatureUrl: newCustumer.signature
+    });
 
-        res.status(201).json({
-            message: 'Customer registered successfully',
-            custumerId: newCustumer.custumerId,
-            photoPath: newCustumer.photo,
-            signaturePath: newCustumer.signature
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error while registering customer' });
-    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error while registering customer' });
+  }
 };
 
 // Customer Login
