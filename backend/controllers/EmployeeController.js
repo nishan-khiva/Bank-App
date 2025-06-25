@@ -39,6 +39,44 @@ const registerEmployee = async (req, res) => {
     res.status(500).json({ message: 'Server error while registering employee' });
   }
 };
+// const registerEmployee = async (req, res) => {
+//   try {
+//     const { name, email, password, role } = req.body;
+
+//     const existing = await Employee.findOne({ email });
+//     if (existing) return res.status(400).json({ message: 'Employee already exists' });
+
+//     // Get the last employee
+//     const lastEmployee = await Employee.findOne({ employeeId: { $ne: null } }).sort({ employeeId: -1 });
+
+//     let nextEmployeeId = 1050; // Default starting ID
+//     if (lastEmployee && typeof lastEmployee.employeeId === 'number') {
+//       nextEmployeeId = lastEmployee.employeeId + 1;
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     const newEmployee = new Employee({
+//       employeeId: nextEmployeeId,
+//       name,
+//       email,
+//       password: hashedPassword,
+//       role,
+//     });
+
+//     await newEmployee.save();
+
+//     res.status(201).json({
+//       message: 'Employee registered successfully',
+//       employeeId: newEmployee.employeeId,
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Server error while registering employee' });
+//   }
+// };
+
 
 // Employee Login
 const loginEmployee = async (req, res) => {
