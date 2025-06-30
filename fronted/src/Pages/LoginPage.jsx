@@ -3,16 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import api from '../Api/axiosInstance'; // Updated import for axios instance
 
 const Login = () => {
-  const [loginType, setLoginType] = useState('employee'); 
+  const [loginType, setLoginType] = useState('employee');
   const [custumerId, setCustumerId] = useState('');
   const [employeeId, setEmployeeId] = useState('1053');
   const [password, setPassword] = useState('1234');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // NEW loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true); // Show loading
 
     const endpoint =
       loginType === 'customer'
@@ -32,7 +34,6 @@ const Login = () => {
         localStorage.setItem('token', token);
         navigate('/customer-dashboard');
       } else {
-        // For employee
         const { token, employee } = res.data;
         localStorage.setItem('emplytoken', token);
         localStorage.setItem('role', employee.role);
@@ -52,6 +53,8 @@ const Login = () => {
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Login failed. Please try again.');
+    } finally {
+      setLoading(false); // Hide loading
     }
   };
 
@@ -101,7 +104,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
 
-            {/* Consumer ID */}
+            {/* ID Field */}
             <input
               type="text"
               placeholder={loginType === 'employee' ? 'Employee ID' : 'Customer ID'}
@@ -124,12 +127,36 @@ const Login = () => {
               required
             />
 
-            {/* Submit */}
+            {/* Submit Button with Loader */}
             <button
               type="submit"
-              className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition flex items-center justify-center"
+              disabled={loading}
             >
-              Login
+              {loading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+              ) : (
+                'Login'
+              )}
             </button>
 
             {/* Error Message */}
